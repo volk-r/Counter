@@ -1,5 +1,5 @@
 //
-//  View.swift
+//  CounterView.swift
 //  Counter
 //
 //  Created by Roman Romanov on 17.03.2024.
@@ -13,8 +13,6 @@ final class CounterView: UIView {
         let button = UIButton()
         button.setTitle("+", for: .normal)
         button.backgroundColor = .systemRed
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
         button.layer.cornerRadius = 20
         
         button.layer.shadowOffset = .init(width: 7, height: 7)
@@ -27,7 +25,6 @@ final class CounterView: UIView {
     
     lazy var minusButton: UIButton = {
         let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("-", for: .normal)
         button.backgroundColor = .systemBlue
         
@@ -43,8 +40,6 @@ final class CounterView: UIView {
     
     lazy var resetButton: UIButton = {
         let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
         let image = UIImage(systemName: "arrow.circlepath")
         button.setImage(image, for: .normal)
         button.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 40), forImageIn: .normal)
@@ -55,8 +50,6 @@ final class CounterView: UIView {
     
     lazy var counterLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
         label.font = .systemFont(ofSize: 120, weight: .bold)
         
         return label
@@ -64,7 +57,6 @@ final class CounterView: UIView {
     
     lazy var historyTextView: UITextView = {
         let textView = UITextView()
-        textView.translatesAutoresizingMaskIntoConstraints = false
         textView.textColor = .gray
         textView.text = "История изменений:"
         textView.isEditable = false
@@ -86,11 +78,16 @@ final class CounterView: UIView {
     }
     
     private func layout() {
-        addSubview(resetButton)
-        addSubview(counterLabel)
-        addSubview(historyTextView)
-        addSubview(plusButton)
-        addSubview(minusButton)
+        [
+            resetButton,
+            counterLabel,
+            historyTextView,
+            plusButton,
+            minusButton,
+        ].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            addSubview($0)
+        }
         
         NSLayoutConstraint.activate([
             counterLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 100),
